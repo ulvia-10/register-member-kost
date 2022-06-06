@@ -3,17 +3,28 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import "../pages/Home.scss";
 import image from "../peopleinroom.jpg";
-import {FaArrowRight} from 'react-icons/fa'
+import { FaArrowRight, FaSmileBeam } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const handlemoveAbout = () => {
+    navigate("/About");
+  };
   return (
     <div className="container">
-      <Header />
       <div className="main">
         <div className="mainLeft">
-          <h1 style={{color: '#425BB2', fontSize:'4em'}}> Hi ~!  </h1>
-          <h3 style={{color: '#424B75', fontSize: '2em'}}> Welcome! kost Bu Haji Dodo</h3>
-          <button className="buttonStart"> Get Started <FaArrowRight/></button>
+          <h1 style={{ color: "#425BB2", fontSize: "4em" }}> Hi ~! </h1>
+          <h3 style={{ color: "#424B75", fontSize: "2em" }}>
+            {" "}
+            Welcome! kost Bu Haji Dodo <br /> Kost Hunian Nyaman dan <br />
+            Terjangkau <FaSmileBeam />
+          </h3>
+          <button className="buttonStart" onClick={handlemoveAbout}>
+            {" "}
+            Get Started <FaArrowRight />
+          </button>
         </div>
         <div className="mainRight">
           <img src={image} width="700px"></img>
