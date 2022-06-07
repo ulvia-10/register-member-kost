@@ -4,41 +4,43 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import {FaPlusCircle} from 'react-icons/fa'
+import { FaPlusCircle } from "react-icons/fa";
 
 const FormAdd = ({ member, addMember }) => {
-
   const [nama, setNama] = useState("");
   const [email, setEmail] = useState("");
   const [noTelp, setnoTelp] = useState("");
   const [alamat, setAlamat] = useState("");
-  const [tanggal, setTanggal] = useState("")
+  const [tanggal, setTanggal] = useState("");
 
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    const data = {
-        id: member.length > 0 ? member[member.length - 1] + 1 : 0,
-        nama,
-        email,
-        noTelp,
-        alamat,
-        tanggal
-      };
 
-      addMember(data);
-      navigate('/ListMember')
-      toast.success("Data berhasil ditambah")
-      
-  }
+    const data = {
+      id: member.length > 0 ? member[member.length - 1] + 1 : 0,
+      nama,
+      email,
+      noTelp,
+      alamat,
+      tanggal,
+    };
+
+    if (!nama || !email || !noTelp || !alamat || !tanggal) {
+      return toast.info("Please insert All required form!");
+    }
+
+    addMember(data);
+    toast.success("Data berhasil ditambah");
+    navigate("/ListMember");
+  };
 
   return (
     <div className="Container">
       <div className="cardFormAdd">
         <form className="formAdd" onSubmit={handleSubmit}>
-          <h4 style={{ textAlign: 'center'}}>Add Member </h4>
+          <h4 style={{ textAlign: "center" }}>Add Member </h4>
           <label>Nama</label>
           <input
             type="text"
@@ -64,13 +66,20 @@ const FormAdd = ({ member, addMember }) => {
             onChange={(e) => setAlamat(e.target.value)}
           ></input>
           <label>Tanggal Masuk</label>
-           <input
+          <input
             type="date"
             value={tanggal}
             onChange={(e) => setTanggal(e.target.value)}
           ></input>
-          <br/>
-          <button style={{padding: '2px'}} className="btn btn-success" type="submit"> Add  <FaPlusCircle/></button>
+          <br />
+          <button
+            style={{ padding: "2px" }}
+            className="btn btn-success"
+            type="submit"
+          >
+            {" "}
+            Add <FaPlusCircle />
+          </button>
         </form>
       </div>
     </div>
@@ -91,24 +100,3 @@ const mapDispatchtoProps = (dispatch) => {
   };
 };
 export default connect(mapStateToProps, mapDispatchtoProps)(FormAdd);
-
-//    const [state, setState] = useState({
-//     nama: "",
-//     email:"",
-//     noTelp: "",
-//     alamat: "",
-//    })
-
-//    React.useEffect(() => {
-//     console.log(state);
-//   }, [state]);
-
-//   const onchange = (key) => (e) => {
-//     setState((prevState) => {
-//       return {
-//         ...prevState,
-//         [e.target.value]: e.target.value,
-//       };
-//     });
-//   return;
-// }

@@ -28,6 +28,7 @@ export const MemberReducer = (state = globalState, action) => {
       const memberFilter = state.filter((member) =>
         member.id === action.payload ? null : member
       );
+      
       state = memberFilter;
       return state;
 
@@ -42,6 +43,7 @@ export const MemberReducer = (state = globalState, action) => {
           ? Object.assign(member, action.payload)
           : member
       );
+
       state = memberUpdate;
       return state;
 

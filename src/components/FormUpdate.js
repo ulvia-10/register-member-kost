@@ -1,18 +1,23 @@
 import React, { useEffect } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useState } from "react";
-import "../components/FormUpdate.scss"
+import "../components/FormUpdate.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const FormUpdate = ({ member, editMember }) => {
+const FormUpdate = ({ editMember }) => {
+  const state = useSelector((state) => state.MemberReducer);
 
-  //getting id 
-  const {id} = useParams();
-  const navigate = useNavigate()
-  
+  useEffect(() => {
+    console.log("state: ", state);
+  }, [state]);
+
+  //getting id
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [nama, setNama] = useState("");
   const [email, setEmail] = useState("");
   const [noTelp, setnoTelp] = useState("");
@@ -20,49 +25,59 @@ const FormUpdate = ({ member, editMember }) => {
   const [tanggal, setTanggal] = useState("");
 
   //find data
-  const currentContact = member.find (
-    (member)=>
-    member.id === parseInt(id)
-  );
-  
-  //trigger current contact 
-  useEffect (()=>{
+  const currentContact = state.find((member) => member.id === parseInt(id));
+
+  //trigger current contact
+  useEffect(() => {
     setNama(currentContact.nama);
     setEmail(currentContact.email);
     setnoTelp(currentContact.noTelp);
     setAlamat(currentContact.alamat);
-    setTanggal(currentContact.tanggal)
-  },[currentContact])
+    setTanggal(currentContact.tanggal);
+  }, [currentContact]);
 
-  const handleSubmitUpdate = (e) =>{
+  const handleSubmitUpdate = (e) => {
     e.preventDefault();
 
-    const checkemailexist = member.filter((member)=>
-        member.email === email && member.id !== currentContact.id
-        ? member : null
-    )
+    const checkemailexist = state.filter((member) =>
+      member.email === email && member.id !== currentContact.id 
+      ? member 
+      : null
+    );
 
-    if(checkemailexist.length > 0 ){
-      return toast.warning('This email is already exist')
+    const checknoTelpexist = state.filter((member) =>
+      member.noTelp === noTelp && member.id !== currentContact.id
+        ? member
+        : null
+    );
+
+    if (checkemailexist.length > 0) {
+      return toast.warning('This email is already exist');
     }
+
+    if (checknoTelpexist.length > 0) {
+      return toast.warning('This no Telepon is already exist');
+    }
+
+    if(!nama || !email || !noTelp || !alamat || !tanggal){
+     return toast.success('please insert all required! ')
+    }
+
     const data = {
-        id: currentContact.id,
-        nama,
-        email,
-        noTelp,
-        alamat,
-        tanggal
-      };
+      id: currentContact.id,
+      nama,
+      email,
+      noTelp,
+      alamat,
+      tanggal,
+    };
 
+    editMember(data);
+    toast.success('Data berhasil di Update');
+    navigate("/ListMember");
+   
+  };
 
-    editMember(data)
-    toast.success("Data berhasil di Update")
-    navigate ('/ListMember')
-  }
-  
-
-
-  
   return (
     <div className="container">
       <Header />

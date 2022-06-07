@@ -1,19 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../components/TabelListMember.scss'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {FaTrash, FaEdit} from 'react-icons/fa'
 
-const TabelListMember = ({member, deleteMember}) => {
+const TabelListMember = ({ deleteMember}) => {
 
-  console.log(member)
-  // const [state, setState] = useState({
-  //   nama: "", 
-  //   email:"",
-  //   noTelp: "",
-  //   alamat: "",
+  const state = useSelector(state => state.MemberReducer)
 
-  // })
+  useEffect(()=>{
+    console.log('state: ', state)
+  }, [state])
+
   return (
     <div className='cardTable'>
     <table class="table">
@@ -28,9 +26,9 @@ const TabelListMember = ({member, deleteMember}) => {
         <th scope="col">Handle</th>
       </tr>
     </thead>
-    <tbody class="table-group-divider">
-      {member.length > 0 ? (
-           member.map ((member, id) =>(
+    <tbody className="table-group-divider">
+      {state.length > 0 ? (
+           state.map ((member, id) =>(
             <tr key ={id}>
             <th scope="row">{id+1}</th>
             <td>{member.nama}</td>
@@ -45,8 +43,6 @@ const TabelListMember = ({member, deleteMember}) => {
       ) : (
         <h2>Empty Data</h2>
       )}
-      
-     
     </tbody>
   </table>
   </div>

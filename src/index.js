@@ -6,11 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
-import { MemberReducer } from './reducers/MemberReducer';
+import { Globalreducer } from './reducers/ReducersCombine';
 import { createStore } from 'redux';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const storeMember = createStore(MemberReducer)
+const storeMember = createStore(Globalreducer)
 
 root.render(
 

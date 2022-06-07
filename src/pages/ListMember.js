@@ -7,6 +7,7 @@ import "../pages/ListMember.scss";
 import { ToastContainer } from "react-toastify"; 
 
 const ListMember = () => {
+
   const navigate = useNavigate()
   const moveAddMember = () => {
     navigate('/AddMember')

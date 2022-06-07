@@ -2,14 +2,14 @@ import React from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import FormUpdate from '../components/FormUpdate'
+import {ToastContainer} from 'react-toastify'
 
 const Editmember = () => {
   return (
     <div className='Container'>
       <Header/>
-      <div className='main'> 
+      <ToastContainer/>
       <FormUpdate/>
-      </div>
       <Footer/>
     </div>
   )
