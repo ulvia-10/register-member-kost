@@ -27,6 +27,16 @@ export const ReviewReducer = (state = reviewState, action) => {
       state = editFilter;
       return state;
 
+      case "DELETE_REVIEW":
+        const deleteReview = state.filter((review) =>
+          review.id === action.payload 
+          ? null 
+          : review
+        )
+        state = deleteReview
+        return state;
+     
+
       default:
       return state;
   }

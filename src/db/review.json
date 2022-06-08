@@ -1,0 +1,14 @@
+{
+    "review":[
+        {
+            "id": 1,
+            "nama": "Ulvia Yulianti",
+            "review": "Kost bersih aman dan nyaman, ibu kostnya ramah "
+          },
+          {
+            "id": 2,
+            "nama": "Azalia Azzahra",
+            "review": "Kamar mandi bersih tapi tidak ada dapur"
+          }
+    ]
+}

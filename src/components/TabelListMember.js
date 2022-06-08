@@ -41,7 +41,7 @@ const TabelListMember = ({ deleteMember}) => {
           </tr>
        ))     
       ) : (
-        <h2>Empty Data</h2>
+        <h6 style={{display: 'flex', justifyContent:'center', alignItems: 'center'}}>Oops! No Data Here !</h6>
       )}
     </tbody>
   </table>

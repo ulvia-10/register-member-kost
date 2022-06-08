@@ -1,35 +1,34 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import "../pages/Review.scss";
 import { connect } from "react-redux";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
-import {FaClipboardCheck} from 'react-icons/fa'
-const Review = ({addReview}) => {
+import { FaClipboardCheck } from "react-icons/fa";
 
-  const state = useSelector(state => state.ReviewReducer)
+const Review = ({ addReview, deleteReview}) => {
+  const state = useSelector((state) => state.ReviewReducer);
 
-  const [nama, setNama] = useState('')
-  const [review, setReview] = useState('')
-
+  const [nama, setNama] = useState("");
+  const [review, setReview] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
 
     const data = {
-      id: state.length>0 ? state[state.length -1] + 1 : 0,
-      nama, 
-      review
-    }
-    addReview(data)
-    toast.success('Review successfully added! ')
-  }
+      id: state.length > 0 ? state[state.length - 1] + 1 : 0,
+      nama,
+      review,
+    };
+    addReview(data);
+    toast.success("Review successfully added! ");
+  };
 
   return (
     <div className="container">
       <Header />
-      <ToastContainer/>
+      <ToastContainer />
       <div className="main">
         <div className="cardFormReview">
           <h4>Add Review</h4>
@@ -62,39 +61,49 @@ const Review = ({addReview}) => {
             </button>
           </form>
         </div>
-        <br/>
-        <div>
-          <h5 style={{color: 'green', borderBottomStyle: 'solid', borderBottomColor:'green',}}>Review <FaClipboardCheck/></h5>
-        {state.map((review) => 
-        <div className="card" key={review.id}>
-            <div class="card-body" >
-              <h5 class="card-title" style={{color: 'green'}}> {review.nama} </h5>
-              <h6 class="card-subtitle mb-2 text-muted">member kost</h6>
-              <p class="card-text"> Review: {review.review}</p>
+        <br />
+        <div> 
+          <h5 style={{ color: "green", borderBottomStyle: "solid" }}>
+            Review <FaClipboardCheck /> <br />
+          </h5>
+          {state.length > 0 ? (
+          state.map((review) => (
+            <div className="card" key={review.id}>
+              <div class="card-body">
+              <div onClick={()=>{deleteReview(review.id)}} className="text-primary sm" style={{display:'flex', justifyContent: 'flex-end', cursor: 'pointer'}}>Delete</div>
+                <h5 class="card-title" style={{ color: "green" }}>
+                  {review.nama}
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">member kost</h6>
+                <p class="card-text"> Review: {review.review}</p>
+              </div>
             </div>
-          </div>
-            )}
+          ))
+          ) : (<div style={{textAlign: 'center', display: 'flex', justifyContent: 'center'}}>Nothing Review Here!</div>)
+        
+        }
         </div>
-        </div>
-          <br/>
+      </div>
+      <br />
       <Footer />
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-    return{
-      state : state.ReviewReducer
+  return {
+    state: state.ReviewReducer,
+  };
+};
+const mapDispatchtoProps = (dispatch) => {
+  return {
+    addReview: (data) => {
+      dispatch({ type: "ADD_REVIEW", payload: data });
+    },
+    deleteReview: (id) => {
+      dispatch({type: "DELETE_REVIEW", payload: id})
     }
-}
-  const mapDispatchtoProps = (dispatch) => {
-    return{
-      addReview: (data) => {
-        dispatch ({type: "ADD_REVIEW", payload: data})
-      }
-    }
-  }
+  };
+};
 
-
-export default connect (mapStateToProps,mapDispatchtoProps)(Review);
-
+export default connect(mapStateToProps, mapDispatchtoProps)(Review);

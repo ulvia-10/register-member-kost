@@ -1,6 +1,5 @@
 import React from "react";
 import Footer from "../components/Footer";
-import Header from "../components/Header";
 import "../pages/Home.scss";
 import image from "../peopleinroom.jpg";
 import { FaArrowRight, FaSmileBeam } from "react-icons/fa";
