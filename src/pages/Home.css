@@ -1,0 +1,39 @@
+.container {
+  overflow: hidden;
+  overflow-y: hidden;
+}
+
+.container .main {
+  margin-top: 70px;
+}
+
+.container .main .mainLeft {
+  float: left;
+}
+
+.container .main .mainRight {
+  float: right;
+}
+
+.container .main .buttonStart {
+  background-color: white;
+  /* Green */
+  border: none;
+  color: #2a6166;
+  padding: 5px 8px;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  -webkit-transition-duration: 0.4s;
+          transition-duration: 0.4s;
+  cursor: pointer;
+  border: 1px solid #2a6166;
+  border-radius: 15px;
+}
+
+.container .main .buttonStart:hover {
+  background-color: #2a6166;
+  color: white;
+}
+/*# sourceMappingURL=Home.css.map */

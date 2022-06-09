@@ -1,17 +1,17 @@
-const reviewState = [
-  {
-    id: 1,
-    nama: "Ulvia Yulianti",
-    review: "Kost bersih aman dan nyaman, ibu kostnya ramah ",
-  },
-  {
-    id: 2,
-    nama: "Azalia Azzahra",
-    review: "Kamar mandi bersih tapi tidak ada dapur",
-  },
-];
+// const reviewState = [
+//   {
+//     id: 1,
+//     nama: "Ulvia Yulianti",
+//     review: "Kost bersih aman dan nyaman, ibu kostnya ramah ",
+//   },
+//   {
+//     id: 2,
+//     nama: "Azalia Azzahra",
+//     review: "Kamar mandi bersih tapi tidak ada dapur",
+//   },
+// ];
 
-export const ReviewReducer = (state = reviewState, action) => {
+export const ReviewReducer = (state = {}, action) => {
 
   switch (action.type) {
     case "ADD_REVIEW":

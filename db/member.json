@@ -1,0 +1,19 @@
+{
+  "member": [
+    {
+      "id": 1,
+      "nama": "Mas Falih",
+      "email": "ulvia.yulianti@gmail.com",
+      "noTelp": "8767876",
+      "alamat": "Malang",
+      "tanggal": "2022-06-09"
+    }
+  ],
+  "review": [
+    {
+      "id": 1,
+      "nama": "Daffa",
+      "review": "kostnya nyaman"
+    }
+  ]
+}

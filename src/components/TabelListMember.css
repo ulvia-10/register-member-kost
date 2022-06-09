@@ -1,0 +1,8 @@
+.buttonHandle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+/*# sourceMappingURL=TabelListMember.css.map */

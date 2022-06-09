@@ -7,13 +7,15 @@ import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import { Globalreducer } from './reducers/ReducersCombine';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const storeMember = createStore(Globalreducer)
 
 root.render(
-
   <React.StrictMode>  
     <Provider store={storeMember}>
     <BrowserRouter>

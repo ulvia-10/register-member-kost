@@ -12,12 +12,12 @@ const About = () => {
           <h3 style={{color:"#3B5417",borderBottom:"1px solid", borderBottomColor: '#3F3F1A'}}>Hola! Member Kost</h3>
           <div className='description'>
             <h6><p class="text-justify">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p></h6>
-            <h6>Feature </h6>
+            <h6>Facility </h6>
             <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+              <li>Kost Nyaman dan Bersih</li>
+              <li>Keamanan terjaga</li>
+              <li>Dapur bersih</li>
+              <li>Kamar mandi bersih</li>
             </ul>
 
             <div className='images'>

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import Header from "./Header";
 import Footer from "./Footer";
 import { connect, useSelector } from "react-redux";
 import { useState } from "react";
 import "../components/FormUpdate.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { memberAxios } from "../api/data";
 
 const FormUpdate = ({ editMember }) => {
   const state = useSelector((state) => state.MemberReducer);
@@ -26,7 +26,8 @@ const FormUpdate = ({ editMember }) => {
 
   //find data
   const currentContact = state.find((member) => member.id === parseInt(id));
-
+  console.log(currentContact)
+  console.log(state)
   //trigger current contact
   useEffect(() => {
     setNama(currentContact.nama);
@@ -36,13 +37,10 @@ const FormUpdate = ({ editMember }) => {
     setTanggal(currentContact.tanggal);
   }, [currentContact]);
 
-  const handleSubmitUpdate = (e) => {
+  const handleSubmitUpdate = async (e) => {
     e.preventDefault();
-
     const checkemailexist = state.filter((member) =>
-      member.email === email && member.id !== currentContact.id 
-      ? member 
-      : null
+      member.email === email && member.id !== currentContact.id ? member : null
     );
 
     const checknoTelpexist = state.filter((member) =>
@@ -52,15 +50,15 @@ const FormUpdate = ({ editMember }) => {
     );
 
     if (checkemailexist.length > 0) {
-      return toast.warning('This email is already exist');
+      return toast.warning("This email is already exist");
     }
 
     if (checknoTelpexist.length > 0) {
-      return toast.warning('This no Telepon is already exist');
+      return toast.warning("This no Telepon is already exist");
     }
 
-    if(!nama || !email || !noTelp || !alamat || !tanggal){
-     return toast.success('please insert all required! ')
+    if (!nama || !email || !noTelp || !alamat || !tanggal) {
+      return toast.success("please insert all required! ");
     }
 
     const data = {
@@ -72,15 +70,21 @@ const FormUpdate = ({ editMember }) => {
       tanggal,
     };
 
-    editMember(data);
-    toast.success('Data berhasil di Update');
-    navigate("/ListMember");
-   
+    try {
+      const response = await memberAxios.put(`/member/${id}`, data);
+      editMember(response);
+      console.log(response);
+      toast.success("Data berhasil di Update");
+      navigate("/ListMember");
+    } catch {
+      console.log(`Error`);
+    }
+
+ 
   };
 
   return (
     <div className="container">
-      <Header />
       <div className="main">
         <div className="cardContainerUpdate">
           <form className="formAdd" onSubmit={handleSubmitUpdate}>
@@ -117,7 +121,13 @@ const FormUpdate = ({ editMember }) => {
             ></input>
             <br />
             <button
-              style={{ padding: "2px" }}
+              style={{
+                padding: "5px",
+                width: "80px",
+                display: "flex",
+                justifyContent: "center",
+                marginLeft: "40px",
+              }}
               className="btn btn-success"
               type="submit"
             >
