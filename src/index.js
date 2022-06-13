@@ -5,15 +5,50 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Provider } from 'react-redux';
+import { Provider} from 'react-redux';
 import { Globalreducer } from './reducers/ReducersCombine';
-import { createStore, applyMiddleware } from 'redux';
-
+import { createStore, applyMiddleware, compose  } from 'redux';
+import thunk from 'redux-thunk';
+import { routerMiddleware, connectRouter } from 'connected-react-router'
+import { createBrowserHistory } from 'history'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const storeMember = createStore(Globalreducer)
+// //buat ngecek loggernya dari prev action ke next action 
+// const myLogger = (storeMember) =>(next) =>(action) =>{
+//   console.log("Logged Action: ", action);
+//   next(action)
+// }
+
+const history = createBrowserHistory();
+
+const initialState = {}
+const enhancers = []
+const middleware = [thunk, routerMiddleware(history)]
+
+if (process.env.NODE_ENV === 'development') {
+  const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__
+  if (typeof devToolsExtension === 'function') {
+    enhancers.push(devToolsExtension())
+  }
+}
+
+const composedEnhancers = compose(
+  applyMiddleware(...middleware),
+  ...enhancers
+)
+
+const storeMember = createStore(
+  connectRouter(history)(Globalreducer),
+  initialState,
+  composedEnhancers
+)
+
+//untuk menampilkan subscribe store member 
+storeMember.subscribe(()=>{
+  console.log("Store updated! ", storeMember.getState())
+}) 
 
 root.render(
   <React.StrictMode>  
@@ -25,7 +60,5 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
 reportWebVitals();

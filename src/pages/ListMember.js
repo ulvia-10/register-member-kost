@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { FaPlusCircle } from "react-icons/fa";
 import TabelListMember from "../components/TabelListMember";
-import "../pages/ListMember.scss";
 import { ToastContainer } from "react-toastify"; 
+import "../pages/ListMember.scss";
 
 const ListMember = () => {
 
@@ -19,10 +20,11 @@ const ListMember = () => {
       <ToastContainer />
       <div className="main">
           <h2>List Member Kost</h2>
-          <button className="btn btn-primary" onClick={moveAddMember}>Add Member</button>
+          <button className="btn btn-primary" onClick={moveAddMember}> <FaPlusCircle/> Add Member</button>
         <TabelListMember/>
       </div>
       <Footer/>
+
     </div>
   );
 };

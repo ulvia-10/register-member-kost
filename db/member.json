@@ -2,18 +2,18 @@
   "member": [
     {
       "id": 1,
-      "nama": "Mas Falih",
+      "nama": "Ulvia Yulianti",
       "email": "ulvia.yulianti@gmail.com",
       "noTelp": "8767876",
       "alamat": "Malang",
-      "tanggal": "2022-06-09"
+      "tanggal": "2022-06-14"
     }
   ],
   "review": [
     {
-      "id": 1,
-      "nama": "Daffa",
-      "review": "kostnya nyaman"
+      "nama": "Ulvia Yulianti",
+      "review": "Pagi halo",
+      "id": 4
     }
   ]
 }

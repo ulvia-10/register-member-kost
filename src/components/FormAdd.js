@@ -5,10 +5,9 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { FaPlusCircle } from "react-icons/fa";
-import {memberAxios} from  "../api/data"
+import { memberAxios } from "../api/data";
 
 const FormAdd = ({ member, addMember }) => {
-
   const [nama, setNama] = useState("");
   const [email, setEmail] = useState("");
   const [noTelp, setnoTelp] = useState("");
@@ -19,7 +18,6 @@ const FormAdd = ({ member, addMember }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const date = format(newdate(),'dd MMMM, yyyy');
     const data = {
       id: member.length > 0 ? member[member.length - 1] + 1 : 0,
       nama,
@@ -29,24 +27,22 @@ const FormAdd = ({ member, addMember }) => {
       tanggal,
     };
 
-
     if (!nama || !email || !noTelp || !alamat || !tanggal) {
       return toast.info("Please insert All required form!");
     }
 
-    try{
-      const response = await memberAxios.post('/member', data)
-      setNama('');
-      setEmail('')
-      setAlamat('')
-      setnoTelp('')
-      setTanggal('')
+    try {
+      const response = await memberAxios.post("/member", data);
+      setNama("");
+      setEmail("");
+      setAlamat("");
+      setnoTelp("");
+      setTanggal("");
       addMember(response);
-    }catch{
-      console.log( `Error`)
+      toast.success("Data berhasil ditambah");
+    } catch {
+      console.log(`Error`);
     }
-
-    toast.success("Data berhasil ditambah");
     navigate("/ListMember");
   };
 
@@ -73,23 +69,25 @@ const FormAdd = ({ member, addMember }) => {
             value={noTelp}
             onChange={(e) => setnoTelp(e.target.value)}
           ></input>
-          <label>Alamat</label>
-          <input
-            type="text"
-            value={alamat}
-            onChange={(e) => setAlamat(e.target.value)}
-          ></input>
           <label>Tanggal Masuk</label>
           <input
             type="date"
             value={tanggal}
             onChange={(e) => setTanggal(e.target.value)}
           ></input>
+          <label>Alamat</label>
+          <textarea
+            type="text"
+            value={alamat}
+            onChange={(e) => setAlamat(e.target.value)}
+          ></textarea>
+
           <br />
           <button
             style={{ padding: "2px" }}
             className="btn btn-success"
-            type="submit">
+            type="submit"
+          >
             Add <FaPlusCircle />
           </button>
         </form>

@@ -7,80 +7,109 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { memberAxios } from "../api/data";
 
-const FormUpdate = ({ editMember }) => {
+const FormUpdate = ({ editMember}) => {
+
+  const { id } = useParams();
+  const navigate = useNavigate();
   const state = useSelector((state) => state.MemberReducer);
+
+  const [member, setMember] = useState({
+    nama: "",
+    email:"",
+    noTelp:"",
+    alamat: "", 
+    tanggal:""
+  })
+
+  useEffect(() => {
+    const fetchMemberById = async () => {
+      try {
+        let response = await memberAxios.get(`/member/${id}`);
+        response = response.data
+        setMember({
+          ...member,
+          nama: response.nama,
+          email: response.email,
+          noTelp: response.noTelp, 
+          alamat: response.alamat, 
+          tanggal: response.tanggal
+        });
+        console.log("member", member)
+      } catch (err) {
+        console.err(err);
+      }
+    };
+    fetchMemberById();
+  }, []);
 
   useEffect(() => {
     console.log("state: ", state);
   }, [state]);
 
   //getting id
-  const { id } = useParams();
-  const navigate = useNavigate();
+ //keynya itu ambil dari member, tergantung dari set member nyaa 
+  const onchange = (key)=>(e) => {
+    setMember((prevState) => {
+      return {
+        ...prevState,
+        [key]: e.target.value, //[e.target.nama] : e.target.value  //e.target.value : e.target.value  key: itu dari value 
+      };
+    });
+  return;
+};
 
-  const [nama, setNama] = useState("");
-  const [email, setEmail] = useState("");
-  const [noTelp, setnoTelp] = useState("");
-  const [alamat, setAlamat] = useState("");
-  const [tanggal, setTanggal] = useState("");
 
-  //find data
-  const currentContact = state.find((member) => member.id === parseInt(id));
-  console.log(currentContact)
-  console.log(state)
-  //trigger current contact
-  useEffect(() => {
-    setNama(currentContact.nama);
-    setEmail(currentContact.email);
-    setnoTelp(currentContact.noTelp);
-    setAlamat(currentContact.alamat);
-    setTanggal(currentContact.tanggal);
-  }, [currentContact]);
+  // console.log(member.data.nama)
+  // find data
+
+  // const members = member.data
+  // const currentContact = members.find((member) => member.id === parseInt(id));
+  // console.log(currentContact)
 
   const handleSubmitUpdate = async (e) => {
     e.preventDefault();
-    const checkemailexist = state.filter((member) =>
-      member.email === email && member.id !== currentContact.id ? member : null
-    );
+    // const checkemailexist = statefilter((member) =>
+    //   member.email === email && member.id !== currentContact.id ? member : null
+    // );
 
-    const checknoTelpexist = state.filter((member) =>
-      member.noTelp === noTelp && member.id !== currentContact.id
-        ? member
-        : null
-    );
+    // const checknoTelpexist = state.filter((member) =>
+    //   member.noTelp === noTelp && member.id !== currentContact.id
+    //     ? member
+    //     : null
+    // );
 
-    if (checkemailexist.length > 0) {
-      return toast.warning("This email is already exist");
-    }
+    // if (checkemailexist.length > 0) {
+    //   return toast.warning("This email is already exist");
+    // }
 
-    if (checknoTelpexist.length > 0) {
-      return toast.warning("This no Telepon is already exist");
-    }
+    // if (checknoTelpexist.length > 0) {
+    //   return toast.warning("This no Telepon is already exist");
+    // }
 
-    if (!nama || !email || !noTelp || !alamat || !tanggal) {
-      return toast.success("please insert all required! ");
-    }
+    // if (!nama || !email || !noTelp || !alamat || !tanggal) {
+    //   return toast.success("please insert all required! ");
+    // }
 
     const data = {
-      id: currentContact.id,
-      nama,
-      email,
-      noTelp,
-      alamat,
-      tanggal,
+      ...member,
+      id: id
     };
 
     try {
       const response = await memberAxios.put(`/member/${id}`, data);
       editMember(response);
-      console.log(response);
-      toast.success("Data berhasil di Update");
-      navigate("/ListMember");
-    } catch {
-      console.log(`Error`);
+    } catch (err) {
+      if (err.response) {
+        console.log(`Error`);
+        console.log(err.response.data);
+        console.log(err.response.headers);
+        console.log(err.response.status);
+      } else {
+        console.log(`Error: ${err.message}`);
+      }
     }
-
- 
+    toast.success("Data berhasil di Update");
+    navigate("/ListMember");
   };
 
   return (
@@ -92,32 +121,37 @@ const FormUpdate = ({ editMember }) => {
             <label>Nama</label>
             <input
               type="text"
-              value={nama}
-              onChange={(e) => setNama(e.target.value)}
+              nama="nama"
+              value={member?.nama}
+              onChange={onchange("nama")}
             ></input>
             <label>Email</label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              nama="email"
+              value={member?.email}
+              onChange={onchange("email")}
             ></input>
             <label>No Telepon</label>
             <input
               type="text"
-              value={noTelp}
-              onChange={(e) => setnoTelp(e.target.value)}
+              value={member?.noTelp}
+              nama="noTelp"
+              onChange={onchange("noTelp")}
             ></input>
             <label>Alamat</label>
             <input
               type="text"
-              value={alamat}
-              onChange={(e) => setAlamat(e.target.value)}
+              nama="alamat"
+              value={member?.alamat}
+              onChange={onchange("alamat")}
             ></input>
             <label>Tanggal Masuk</label>
             <input
               type="date"
-              value={tanggal}
-              onChange={(e) => setTanggal(e.target.value)}
+              nama="tanggal"
+              value={member?.tanggal}
+              onChange={onchange("tanggal")}
             ></input>
             <br />
             <button
@@ -143,15 +177,13 @@ const FormUpdate = ({ editMember }) => {
 
 const mapStateToProps = (state) => {
   return {
-    member: state,
+    member: state.MemberReducer,
   };
 };
 
 const mapDispatchtoProps = (dispatch) => {
   return {
-    editMember: (data) => {
-      dispatch({ type: "UPDATE_MEMBER", payload: data });
-    },
+    editMember: (data) => { dispatch({ type: "UPDATE_MEMBER", payload: data }); },
   };
 };
 

@@ -8,6 +8,9 @@ import AddMember from './pages/AddMember';
 import Review from './pages/Review';
 import Editmember from './pages/Editmember';
 import 'react-toastify/dist/ReactToastify.css';
+import DetailMember from './pages/DetailMember';
+import Editreview from './pages/Editreview';
+
 
 function App() {
   return (
@@ -19,6 +22,8 @@ function App() {
     <Route path='/Review' element={<Review/>}></Route>
     <Route path='/About' element={<About/>}></Route>
     <Route path='/EditMember/:id' element={<Editmember/>}></Route>
+    <Route path='/EditReview/:id' element={<Editreview/>}></Route>
+    <Route path='/Detail/:id' element={<DetailMember/>}></Route>
     </Routes>
   );
 }
