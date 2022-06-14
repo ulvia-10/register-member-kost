@@ -22,7 +22,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // }
 
 const history = createBrowserHistory();
-
 const initialState = {}
 const enhancers = []
 const middleware = [thunk, routerMiddleware(history)]
@@ -54,7 +53,9 @@ root.render(
   <React.StrictMode>  
     <Provider store={storeMember}>
     <BrowserRouter>
+    <div className='Container'>
     <App />
+    </div>
     </BrowserRouter>
     </Provider>
   </React.StrictMode>

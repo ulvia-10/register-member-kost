@@ -13,21 +13,22 @@ const TabelListMember = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetching = async () => {
-      const response = await fetchMember();
-      if (response) {
-        setIsLoading(false);
-      }
-    };
     fetching();
   }, []);
+
+  const fetching = async () => {
+    const response = await fetchMember();
+    if (response) {
+      setIsLoading(false);
+    }
+  };
 
   const handleDelete = async (id) => {
     try {
       const response = await deleteMember(id);
-      window.location.reload()
       if (response) {
         setIsLoading(false);
+        fetching();
       }
     } catch (err) {
       console.log(`Error : ${err.message}`);

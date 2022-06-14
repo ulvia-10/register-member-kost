@@ -1,7 +1,6 @@
 export const ReviewReducer = (state = {}, action) => {
   
   switch (action.type) {
-
     case "LIST_REVIEW":
       return{
         ...state, 

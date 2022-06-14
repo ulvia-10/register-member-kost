@@ -7,34 +7,34 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { memberAxios } from "../api/data";
 
-const FormUpdate = ({ editMember}) => {
-
+const FormUpdate = ({ editMember }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const state = useSelector((state) => state.MemberReducer);
 
+  //ketika menggunakan class component, gunakan setState.
   const [member, setMember] = useState({
     nama: "",
-    email:"",
-    noTelp:"",
-    alamat: "", 
-    tanggal:""
-  })
+    email: "",
+    noTelp: "",
+    alamat: "",
+    tanggal: "",
+  });
 
   useEffect(() => {
     const fetchMemberById = async () => {
       try {
         let response = await memberAxios.get(`/member/${id}`);
-        response = response.data
+        response = response.data;
         setMember({
           ...member,
           nama: response.nama,
           email: response.email,
-          noTelp: response.noTelp, 
-          alamat: response.alamat, 
-          tanggal: response.tanggal
+          noTelp: response.noTelp,
+          alamat: response.alamat,
+          tanggal: response.tanggal,
         });
-        console.log("member", member)
+        console.log("member", member);
       } catch (err) {
         console.err(err);
       }
@@ -42,22 +42,31 @@ const FormUpdate = ({ editMember}) => {
     fetchMemberById();
   }, []);
 
-  useEffect(() => {
-    console.log("state: ", state);
-  }, [state]);
+  const resetValue = () => {
+    setMember({
+      nama: "",
+      email: "",
+      noTelp: "",
+      alamat: "",
+      tanggal: "",
+    });
+  };
+
+  // useEffect(() => {
+  //   console.log("state: ", state);
+  // }, [state]);
 
   //getting id
- //keynya itu ambil dari member, tergantung dari set member nyaa 
-  const onchange = (key)=>(e) => {
+  //keynya itu ambil dari member, tergantung dari set member nyaa
+  const onchange = (key) => (e) => {
     setMember((prevState) => {
       return {
         ...prevState,
-        [key]: e.target.value, //[e.target.nama] : e.target.value  //e.target.value : e.target.value  key: itu dari value 
+        [key]: e.target.value, //[e.target.nama] : e.target.value  //e.target.value : e.target.value  key: itu dari value
       };
     });
-  return;
-};
-
+    return;
+  };
 
   // console.log(member.data.nama)
   // find data
@@ -92,7 +101,7 @@ const FormUpdate = ({ editMember}) => {
 
     const data = {
       ...member,
-      id: id
+      id: id,
     };
 
     try {
@@ -116,7 +125,7 @@ const FormUpdate = ({ editMember}) => {
     <div className="container">
       <div className="main">
         <div className="cardContainerUpdate">
-          <form className="formAdd" onSubmit={handleSubmitUpdate}>
+          <form className="formAdd" >
             <h4 style={{ textAlign: "center" }}>Edit Member </h4>
             <label>Nama</label>
             <input
@@ -156,18 +165,14 @@ const FormUpdate = ({ editMember}) => {
             <br />
             <button
               style={{
-                padding: "5px",
-                width: "80px",
-                display: "flex",
+                width: "100%",
                 justifyContent: "center",
-                marginLeft: "40px",
+                alignItems: "center",
               }}
-              className="btn btn-success"
-              type="submit"
-            >
-              Edit
-            </button>
+              className="btn btn-success" type="submit" onClick={handleSubmitUpdate}> Edit</button>
+            
           </form>
+          <button className="buttonReset" onClick={resetValue}>Reset</button>
         </div>
       </div>
       <Footer />
@@ -183,7 +188,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchtoProps = (dispatch) => {
   return {
-    editMember: (data) => { dispatch({ type: "UPDATE_MEMBER", payload: data }); },
+    editMember: (data) => {
+      dispatch({ type: "UPDATE_MEMBER", payload: data });
+    },
   };
 };
 

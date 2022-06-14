@@ -19,13 +19,24 @@ export const fetchDeleteReview = (id) => async (dispatch) => {
   try {
     let response = await memberAxios.delete(`/review/${id}`);
     response = response.data;
-    dispatch({
-      type: "DELETE_REVIEW",
-      payload: id,
-    });
     return true;
   } catch (err) {
     console.log(err);
     return false;
   }
 };
+
+// export const fetchAddReview = (data) => async (dispatch) => {
+//   try {
+//     let response = await memberAxios.post(`/review`);
+//     response = response.data;
+//     dispatch({
+//       type: "ADD_REVIEW",
+//       payload: data,
+//     });
+//     return true;
+//   } catch (err) {
+//     console.log(err);
+//     return false;
+//   }
+// };

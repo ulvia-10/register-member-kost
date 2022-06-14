@@ -1,19 +1,19 @@
 {
   "member": [
     {
-      "id": 1,
-      "nama": "Ulvia Yulianti",
+      "nama": "Halo",
       "email": "ulvia.yulianti@gmail.com",
       "noTelp": "8767876",
       "alamat": "Malang",
-      "tanggal": "2022-06-14"
+      "tanggal": "2022-06-14",
+      "id": 2
     }
   ],
   "review": [
     {
       "nama": "Ulvia Yulianti",
-      "review": "Pagi halo",
-      "id": 4
+      "review": "halo",
+      "id": 3
     }
   ]
 }

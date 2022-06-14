@@ -4,10 +4,6 @@ export const deleteMemberAction = (id) => async (dispatch) => {
   try {
     let response = await memberAxios.delete(`member/${id}`);
     response = response.data;
-    dispatch({
-      type: "DELETE_MEMBER",
-      payload: id,
-    });
     return true;
   } catch (err) {
     console.log(err);

@@ -6,7 +6,7 @@ import {ToastContainer} from 'react-toastify'
 
 const Editmember = () => {
   return (
-    <div className='Container'>
+    <div>
       <Header/>
       <ToastContainer/>
       <FormUpdate/>

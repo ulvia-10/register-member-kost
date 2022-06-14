@@ -26,7 +26,7 @@ const Editreview = ({Editreview}) => {
             setReview({
               ...review,
               nama: response.nama,
-              review: response.email,
+              review: response.review,
             });
             console.log("member", review)
           } catch (err) {
@@ -66,7 +66,7 @@ const Editreview = ({Editreview}) => {
       }
 
   return (
-   <div className='container'>
+    <div>
     <Header/>
         <div className='cardFormReview'>
         <form onSubmit={handleEditSubmit}>

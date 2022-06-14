@@ -10,6 +10,7 @@ import { memberAxios } from "../api/data";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchReview, fetchDeleteReview } from "../actions/Review";
 
+
 const Review = (props) => {
   const { addReview, deleteReview, listReview, dataReview } = props;
   const state = useSelector((state) => state.ReviewReducer);
@@ -47,7 +48,6 @@ const Review = (props) => {
 
     try {
       const response = await memberAxios.post("/review", data);
-      window.location.reload();
       addReview(response);
     } catch (err) {
       console.err(err);
@@ -70,7 +70,7 @@ const Review = (props) => {
 
   return (
     <>
-      <div className="container">
+      <div>
         <Header />
         <div className="main">
           <div className="cardFormReview">

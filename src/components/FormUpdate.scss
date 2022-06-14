@@ -9,12 +9,22 @@
         background-color: #FFF;
         display: flex;
         justify-content: center;
+        flex-direction: column;
+        align-items: center;
 
     .formAdd{
         display: flex;
         flex-direction: column;
         width: 60%;
         justify-content: center;
+    }
+    .buttonReset{
+        background-color: #000;
+        color: #FFF;
+        margin-top: 20px;
+        padding: 5px;
+        width: 60%;
+        border-radius: 5%;
     }
  
 }

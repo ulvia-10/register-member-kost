@@ -15,12 +15,12 @@ const ListMember = () => {
   }
 
   return (
-    <div className="container">
+    <div>
       <Header/>
       <ToastContainer />
-      <div className="main">
+      <div className="isiContent">
           <h2>List Member Kost</h2>
-          <button className="btn btn-primary" onClick={moveAddMember}> <FaPlusCircle/> Add Member</button>
+          <button className="btn btn-primary btn-sm" onClick={moveAddMember}> <FaPlusCircle/> Add Member</button>
         <TabelListMember/>
       </div>
       <Footer/>
