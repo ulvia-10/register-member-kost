@@ -72,8 +72,7 @@ const TabelListMember = (props) => {
                     <td className="buttonHandle">
                       <button
                         className="btn btn-danger btn-sm"
-                        onClick={() => handleDelete(member.id)}
-                      >
+                        onClick={() => handleDelete(member.id)}>
                         <FaTrash />
                       </button>
                       <Link to={`/editMember/${member.id}`}>
